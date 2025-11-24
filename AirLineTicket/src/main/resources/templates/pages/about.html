@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorate="~{layout/decorators}">
+<head>
+    <title>Giới thiệu</title>
+</head>
+
+<body>
+    <section layout:fragment="content">
+        <!-- Page Header -->
+        <section class="page-header">
+            <div class="container">
+                <h1>Giới thiệu về SkyTravel</h1>
+                <p>Khám phá câu chuyện của chúng tôi</p>
+            </div>
+        </section>
+
+        <!-- About Content -->
+        <section class="about-content">
+            <div class="container">
+                <div class="about-grid">
+                    <div class="about-text">
+                        <h2>Câu chuyện của chúng tôi</h2>
+                        <p>SkyTravel được thành lập vào năm 2020 với sứ mệnh mang đến cho khách hàng những trải nghiệm
+                            du lịch tuyệt vời nhất với giá cả hợp lý. Chúng tôi tin rằng mọi người đều xứng đáng có cơ
+                            hội khám phá thế giới.</p>
+
+                        <p>Với hơn 4 năm kinh nghiệm trong ngành du lịch, chúng tôi đã phục vụ hơn 100,000 khách hàng và
+                            được đánh giá là một trong những đại lý vé máy bay uy tín nhất Việt Nam.</p>
+
+                        <h3>Tầm nhìn</h3>
+                        <p>Trở thành nền tảng đặt vé máy bay hàng đầu Đông Nam Á, mang đến trải nghiệm du lịch không
+                            giới hạn cho mọi người.</p>
+
+                        <h3>Sứ mệnh</h3>
+                        <p>Kết nối mọi người với thế giới thông qua những chuyến bay tiện lợi, an toàn và giá cả phải
+                            chăng.</p>
+                    </div>
+
+                    <div class="about-image">
+                        <img src="https://images.unsplash.com/photo-1488646953014-85cb44e25828?w=600"
+                            alt="SkyTravel Team">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Our Values -->
+        <section class="our-values">
+            <div class="container">
+                <h2>Giá trị cốt lõi</h2>
+                <div class="values-grid">
+                    <div class="value-card">
+                        <i class="fas fa-heart"></i>
+                        <h3>Khách hàng là trung tâm</h3>
+                        <p>Chúng tôi luôn đặt nhu cầu và sự hài lòng của khách hàng lên hàng đầu trong mọi quyết định.
+                        </p>
+                    </div>
+                    <div class="value-card">
+                        <i class="fas fa-shield-alt"></i>
+                        <h3>Đáng tin cậy</h3>
+                        <p>Cam kết cung cấp dịch vụ chất lượng cao với độ tin cậy tuyệt đối.</p>
+                    </div>
+                    <div class="value-card">
+                        <i class="fas fa-lightbulb"></i>
+                        <h3>Đổi mới</h3>
+                        <p>Không ngừng cải tiến và phát triển để mang đến trải nghiệm tốt nhất.</p>
+                    </div>
+                    <div class="value-card">
+                        <i class="fas fa-handshake"></i>
+                        <h3>Minh bạch</h3>
+                        <p>Thông tin rõ ràng, giá cả minh bạch, không có phí ẩn.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Team Section -->
+        <section class="team-section">
+            <div class="container">
+                <h2>Đội ngũ của chúng tôi</h2>
+                <div class="team-grid">
+                    <div class="team-member">
+                        <img th:src="@{/images/A7.jpg}" alt="CEO">
+                        <h3>Nguyễn Văn A</h3>
+                        <p>CEO & Founder</p>
+                        <div class="social-links">
+                            <a href="#"><i class="fab fa-linkedin"></i></a>
+                            <a href="#"><i class="fab fa-twitter"></i></a>
+                        </div>
+                    </div>
+                    <div class="team-member">
+                        <img th:src="@{/images/M10.jpg}" alt="CTO">
+                        <h3>Trần Thị B</h3>
+                        <p>CTO</p>
+                        <div class="social-links">
+                            <a href="#"><i class="fab fa-linkedin"></i></a>
+                            <a href="#"><i class="fab fa-github"></i></a>
+                        </div>
+                    </div>
+                    <div class="team-member">
+                        <img th:src="@{/images/Lew.jpg}"
+                            alt="Marketing Director">
+                        <h3>Lê Văn C</h3>
+                        <p>Marketing Director</p>
+                        <div class="social-links">
+                            <a href="#"><i class="fab fa-linkedin"></i></a>
+                            <a href="#"><i class="fab fa-facebook"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Statistics -->
+        <section class="statistics">
+            <div class="container">
+                <h2>Thành tựu của chúng tôi</h2>
+                <div class="stats-grid">
+                    <div class="stat-item">
+                        <i class="fas fa-users"></i>
+                        <h3>100,000+</h3>
+                        <p>Khách hàng tin tưởng</p>
+                    </div>
+                    <div class="stat-item">
+                        <i class="fas fa-plane"></i>
+                        <h3>500,000+</h3>
+                        <p>Vé đã bán</p>
+                    </div>
+                    <div class="stat-item">
+                        <i class="fas fa-globe"></i>
+                        <h3>50+</h3>
+                        <p>Quốc gia phục vụ</p>
+                    </div>
+                    <div class="stat-item">
+                        <i class="fas fa-star"></i>
+                        <h3>4.8/5</h3>
+                        <p>Đánh giá trung bình</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+</body>
+
+</html>

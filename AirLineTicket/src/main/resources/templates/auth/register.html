@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/decorators}">
+<head>
+    <title>Đăng ký</title>
+</head>
+<body>
+<section layout:fragment="content">
+    <!-- Register Section -->
+    <section class="auth-section">
+        <div class="container">
+            <div class="auth-container">
+                <div class="auth-card">
+                    <div class="auth-header">
+                        <h1>Đăng ký tài khoản</h1>
+                        <p>Tạo tài khoản để trải nghiệm dịch vụ tốt nhất</p>
+                    </div>
+
+                    <form id="registerForm" class="auth-form" method="post">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="firstName">Họ</label>
+                                <div class="input-group">
+                                    <i class="fas fa-user"></i>
+                                    <input type="text" id="firstName" name="firstName" placeholder="Nhập họ"
+                                           required>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="lastName">Tên</label>
+                                <div class="input-group">
+                                    <i class="fas fa-user"></i>
+                                    <input type="text" id="lastName" name="lastName" placeholder="Nhập tên"
+                                           required>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <div class="input-group">
+                                <i class="fas fa-envelope"></i>
+                                <input type="email" id="email" name="email" placeholder="Nhập email của bạn"
+                                       required>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="phone">Số điện thoại</label>
+                            <div class="input-group">
+                                <i class="fas fa-phone"></i>
+                                <input type="tel" id="phone" name="phone" placeholder="Nhập số điện thoại" required>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="username">Tài khoản</label>
+                            <div class="input-group">
+                                <i class="fas fa-phone"></i>
+                                <input type="text" id="username" name="username" placeholder="Nhập tài khoản"
+                                       required>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="password">Mật khẩu</label>
+                            <div class="input-group">
+                                <i class="fas fa-lock"></i>
+                                <input type="password" id="password" name="password" placeholder="Nhập mật khẩu"
+                                       required>
+                                <!--                                <button type="button" class="password-toggle" onclick="togglePassword('registerPassword')">-->
+                                <!--                                    <button type="button" class="password-toggle">-->
+                                <!--                                                                            <i class="fas fa-eye"></i>-->
+                                <!--                                    </button>-->
+                            </div>
+                            <!--                            <div class="password-strength">-->
+                            <!--                                <div class="strength-bar">-->
+                            <!--                                    <div class="strength-fill" id="strengthFill"></div>-->
+                            <!--                                </div>-->
+                            <!--                                <span class="strength-text" id="strengthText">Nhập mật khẩu</span>-->
+                            <!--                            </div>-->
+                        </div>
+
+                        <div class="form-group">
+                            <label for="confirmPassword">Xác nhận mật khẩu</label>
+                            <div class="input-group">
+                                <i class="fas fa-lock"></i>
+                                <input type="password" id="confirmPassword" name="confirmPassword"
+                                       placeholder="Nhập lại mật khẩu" required>
+                                <!-- <button type="button" class="password-toggle" onclick="togglePassword('confirmPassword')">-->
+                                <!--                                <button type="button" class="password-toggle">-->
+                                <!--                                    <i class="fas fa-eye"></i>-->
+                                <!--                                </button>-->
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="birthDate">Ngày sinh</label>
+                            <div class="input-group">
+                                <i class="fas fa-calendar"></i>
+                                <input type="date" id="birthDate" name="birthDate" required>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Giới tính</label>
+                            <div class="radio-group">
+                                <label class="radio-container">
+                                    <input type="radio" id="male" name="gender" value="Male" required>
+                                    <span class="radio-mark"></span>
+                                    Nam
+                                </label>
+                                <label class="radio-container">
+                                    <input type="radio" id="female" name="gender" value="Female" required>
+                                    <span class="radio-mark"></span>
+                                    Nữ
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="checkbox-container">
+                                <input type="checkbox" id="agreeTerms" name="agreeTerms" required>
+                                <span class="checkmark"></span>
+                                Tôi đồng ý với <a href="#" class="terms-link">Điều khoản sử dụng</a> và <a href="#"
+                                                                                                           class="terms-link">Chính
+                                sách bảo mật</a>
+                            </label>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="checkbox-container">
+                                <input type="checkbox" id="newsletter" name="newsletter">
+                                <span class="checkmark"></span>
+                                Nhận thông tin khuyến mãi qua email
+                            </label>
+                        </div>
+
+                        <button type="submit" class="auth-btn">
+                            <i class="fas fa-user-plus"></i>
+                            Đăng ký tài khoản
+                        </button>
+
+                        <div class="divider">
+                            <span>hoặc</span>
+                        </div>
+
+                        <div class="social-login">
+                            <button type="button" class="social-btn google">
+                                <i class="fab fa-google"></i>
+                                Đăng ký với Google
+                            </button>
+                            <button type="button" class="social-btn facebook">
+                                <i class="fab fa-facebook-f"></i>
+                                Đăng ký với Facebook
+                            </button>
+                        </div>
+
+                        <div class="auth-footer">
+                            <p>Đã có tài khoản? <a th:href="@{/login}">Đăng nhập ngay</a></p>
+                        </div>
+                    </form>
+                </div>
+
+                <div class="auth-info">
+                    <div class="info-content">
+                        <h2>Lợi ích khi đăng ký</h2>
+                        <div class="benefits">
+                            <div class="benefit-item">
+                                <i class="fas fa-star"></i>
+                                <div>
+                                    <h3>Thành viên VIP</h3>
+                                    <p>Hưởng ưu đãi đặc biệt và dịch vụ cao cấp</p>
+                                </div>
+                            </div>
+                            <div class="benefit-item">
+                                <i class="fas fa-credit-card"></i>
+                                <div>
+                                    <h3>Thanh toán nhanh</h3>
+                                    <p>Lưu thông tin thanh toán để đặt vé nhanh hơn</p>
+                                </div>
+                            </div>
+                            <div class="benefit-item">
+                                <i class="fas fa-plane-departure"></i>
+                                <div>
+                                    <h3>Check-in online</h3>
+                                    <p>Check-in trực tuyến và chọn ghế ưa thích</p>
+                                </div>
+                            </div>
+                            <div class="benefit-item">
+                                <i class="fas fa-headset"></i>
+                                <div>
+                                    <h3>Hỗ trợ ưu tiên</h3>
+                                    <p>Được hỗ trợ ưu tiên qua hotline và chat</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</section>
+<script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+<script th:src="@{/js/register.js}"></script>
+</body>
+
+</html>

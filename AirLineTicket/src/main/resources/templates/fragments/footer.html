@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<body>
+<!-- Footer -->
+<div th:fragment="footer" class="footer">
+    <div class="container">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>SkyTravel</h3>
+                <p>Đặt vé máy bay giá rẻ, dịch vụ tốt nhất</p>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-facebook"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-youtube"></i></a>
+
+                </div>
+            </div>
+            <div class="footer-section">
+                <h4>Dịch vụ</h4>
+                <ul>
+                    <li><a th:href="@{/services}">Đặt vé máy bay</a></li>
+                    <li><a th:href="@{/services}">Đặt khách sạn</a></li>
+                    <li><a th:href="@{/services}">Thuê xe</a></li>
+                    <li><a th:href="@{/services}">Bảo hiểm du lịch</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Hỗ trợ</h4>
+                <ul>
+                    <li><a th:href="@{/contact}">Trung tâm trợ giúp</a></li>
+                    <li><a th:href="@{/contact}">Liên hệ</a></li>
+                    <li><a th:href="@{#}">Điều khoản sử dụng</a></li>
+                    <li><a th:href="@{#}">Chính sách bảo mật</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Liên hệ</h4>
+                <p><i class="fas fa-phone"></i> 1900-1234</p>
+                <p><i class="fas fa-envelope"></i> support@skytravel.com</p>
+                <p><i class="fas fa-map-marker-alt"></i> La Uyên, Thượng Phúc, Hà Nội</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 SkyTravel. Tất cả quyền được bảo lưu.</p>
+        </div>
+    </div>
+</div>
+</body>
+</html>

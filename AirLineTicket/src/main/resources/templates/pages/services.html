@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/decorators}">
+<head>
+    <title>Dịch vụ</title>
+</head>
+
+<body>
+    <section layout:fragment="content">
+        <!-- Page Header -->
+        <section class="page-header">
+            <div class="container">
+                <h1>Dịch vụ của chúng tôi</h1>
+                <p>Giải pháp du lịch toàn diện cho mọi nhu cầu</p>
+            </div>
+        </section>
+
+        <!-- Services Overview -->
+        <section class="services-overview">
+            <div class="container">
+                <div class="services-grid">
+                    <!-- Flight Booking -->
+                    <div class="service-card">
+                        <div class="service-icon">
+                            <i class="fas fa-plane"></i>
+                        </div>
+                        <h3>Đặt vé máy bay</h3>
+                        <p>Tìm và đặt vé máy bay giá rẻ từ hơn 100 hãng hàng không trên toàn thế giới. So sánh giá và
+                            chọn chuyến bay phù hợp nhất.</p>
+                        <ul class="service-features">
+                            <li><i class="fas fa-check"></i> So sánh giá từ nhiều hãng</li>
+                            <li><i class="fas fa-check"></i> Đặt vé 24/7</li>
+                            <li><i class="fas fa-check"></i> Hỗ trợ đổi/hủy vé</li>
+                            <li><i class="fas fa-check"></i> Thanh toán an toàn</li>
+                        </ul>
+                        <a href="/" class="service-btn">Đặt vé ngay</a>
+                    </div>
+
+                    <!-- Hotel Booking -->
+                    <div class="service-card">
+                        <div class="service-icon">
+                            <i class="fas fa-hotel"></i>
+                        </div>
+                        <h3>Đặt khách sạn</h3>
+                        <p>Khám phá và đặt phòng khách sạn từ budget đến luxury tại hơn 200 quốc gia với giá tốt nhất.
+                        </p>
+                        <ul class="service-features">
+                            <li><i class="fas fa-check"></i> Hơn 1 triệu khách sạn</li>
+                            <li><i class="fas fa-check"></i> Đánh giá thực từ khách</li>
+                            <li><i class="fas fa-check"></i> Ưu đãi đặc biệt</li>
+                            <li><i class="fas fa-check"></i> Hủy miễn phí</li>
+                        </ul>
+                        <a href="#" class="service-btn">Tìm khách sạn</a>
+                    </div>
+
+                    <!-- Car Rental -->
+                    <div class="service-card">
+                        <div class="service-icon">
+                            <i class="fas fa-car"></i>
+                        </div>
+                        <h3>Thuê xe</h3>
+                        <p>Thuê xe tự lái hoặc có tài xế tại điểm đến của bạn với giá cạnh tranh và dịch vụ chuyên
+                            nghiệp.</p>
+                        <ul class="service-features">
+                            <li><i class="fas fa-check"></i> Xe đời mới, sạch sẽ</li>
+                            <li><i class="fas fa-check"></i> Bảo hiểm đầy đủ</li>
+                            <li><i class="fas fa-check"></i> Giao xe tận nơi</li>
+                            <li><i class="fas fa-check"></i> Tài xế kinh nghiệm</li>
+                        </ul>
+                        <a href="#" class="service-btn">Thuê xe</a>
+                    </div>
+
+                    <!-- Travel Insurance -->
+                    <div class="service-card">
+                        <div class="service-icon">
+                            <i class="fas fa-shield-alt"></i>
+                        </div>
+                        <h3>Bảo hiểm du lịch</h3>
+                        <p>Bảo vệ chuyến đi của bạn với các gói bảo hiểm du lịch toàn diện từ các công ty bảo hiểm uy
+                            tín.</p>
+                        <ul class="service-features">
+                            <li><i class="fas fa-check"></i> Bảo hiểm y tế</li>
+                            <li><i class="fas fa-check"></i> Bảo hiểm hành lý</li>
+                            <li><i class="fas fa-check"></i> Hỗ trợ khẩn cấp 24/7</li>
+                            <li><i class="fas fa-check"></i> Bồi thường nhanh chóng</li>
+                        </ul>
+                        <a href="#" class="service-btn">Mua bảo hiểm</a>
+                    </div>
+
+                    <!-- Travel Packages -->
+                    <div class="service-card">
+                        <div class="service-icon">
+                            <i class="fas fa-suitcase"></i>
+                        </div>
+                        <h3>Tour trọn gói</h3>
+                        <p>Khám phá các điểm đến hấp dẫn với tour trọn gói bao gồm vé máy bay, khách sạn và các hoạt
+                            động.</p>
+                        <ul class="service-features">
+                            <li><i class="fas fa-check"></i> Tour trong nước & quốc tế</li>
+                            <li><i class="fas fa-check"></i> Hướng dẫn viên chuyên nghiệp</li>
+                            <li><i class="fas fa-check"></i> Lịch trình linh hoạt</li>
+                            <li><i class="fas fa-check"></i> Giá tốt nhất</li>
+                        </ul>
+                        <a href="#" class="service-btn">Xem tour</a>
+                    </div>
+
+                    <!-- Visa Service -->
+                    <div class="service-card">
+                        <div class="service-icon">
+                            <i class="fas fa-passport"></i>
+                        </div>
+                        <h3>Dịch vụ visa</h3>
+                        <p>Hỗ trợ làm visa nhanh chóng và thuận tiện cho các điểm đến phổ biến trên thế giới.</p>
+                        <ul class="service-features">
+                            <li><i class="fas fa-check"></i> Visa điện tử</li>
+                            <li><i class="fas fa-check"></i> Hỗ trợ hồ sơ</li>
+                            <li><i class="fas fa-check"></i> Xử lý nhanh</li>
+                            <li><i class="fas fa-check"></i> Tỷ lệ đậu cao</li>
+                        </ul>
+                        <a href="#" class="service-btn">Làm visa</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Service Process -->
+        <section class="service-process">
+            <div class="container">
+                <h2>Quy trình dịch vụ</h2>
+                <div class="process-steps">
+                    <div class="process-step">
+                        <div class="step-number">1</div>
+                        <div class="step-content">
+                            <h3>Tìm kiếm</h3>
+                            <p>Nhập thông tin chuyến đi và tìm kiếm các lựa chọn phù hợp</p>
+                        </div>
+                    </div>
+                    <div class="process-step">
+                        <div class="step-number">2</div>
+                        <div class="step-content">
+                            <h3>So sánh</h3>
+                            <p>So sánh giá cả và dịch vụ từ nhiều nhà cung cấp</p>
+                        </div>
+                    </div>
+                    <div class="process-step">
+                        <div class="step-number">3</div>
+                        <div class="step-content">
+                            <h3>Đặt chỗ</h3>
+                            <p>Chọn dịch vụ tốt nhất và tiến hành đặt chỗ</p>
+                        </div>
+                    </div>
+                    <div class="process-step">
+                        <div class="step-number">4</div>
+                        <div class="step-content">
+                            <h3>Thanh toán</h3>
+                            <p>Thanh toán an toàn và nhận xác nhận đặt chỗ</p>
+                        </div>
+                    </div>
+                    <div class="process-step">
+                        <div class="step-number">5</div>
+                        <div class="step-content">
+                            <h3>Hỗ trợ</h3>
+                            <p>Nhận hỗ trợ 24/7 trong suốt chuyến đi</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Why Choose Us -->
+        <section class="why-choose-us">
+            <div class="container">
+                <h2>Tại sao chọn SkyTravel?</h2>
+                <div class="benefits-grid">
+                    <div class="benefit-item">
+                        <i class="fas fa-dollar-sign"></i>
+                        <h3>Giá tốt nhất</h3>
+                        <p>Cam kết mang đến giá vé và dịch vụ tốt nhất thị trường</p>
+                    </div>
+                    <div class="benefit-item">
+                        <i class="fas fa-clock"></i>
+                        <h3>Dịch vụ 24/7</h3>
+                        <p>Hỗ trợ khách hàng 24 giờ mỗi ngày, 7 ngày trong tuần</p>
+                    </div>
+                    <div class="benefit-item">
+                        <i class="fas fa-shield-alt"></i>
+                        <h3>An toàn tuyệt đối</h3>
+                        <p>Thanh toán và thông tin được bảo mật với công nghệ tiên tiến</p>
+                    </div>
+                    <div class="benefit-item">
+                        <i class="fas fa-star"></i>
+                        <h3>Chất lượng cao</h3>
+                        <p>Đối tác với các hãng hàng không và khách sạn uy tín</p>
+                    </div>
+                    <div class="benefit-item">
+                        <i class="fas fa-mobile-alt"></i>
+                        <h3>Tiện lợi</h3>
+                        <p>Đặt vé và quản lý chuyến đi dễ dàng trên mọi thiết bị</p>
+                    </div>
+                    <div class="benefit-item">
+                        <i class="fas fa-heart"></i>
+                        <h3>Chăm sóc tận tình</h3>
+                        <p>Đội ngũ nhân viên chuyên nghiệp, nhiệt tình</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Partners -->
+        <section class="partners-section">
+            <div class="container">
+                <h2>Đối tác của chúng tôi</h2>
+                <div class="partners-grid">
+                    <div class="partner-item">
+                        <img src="https://via.placeholder.com/150x80/667eea/ffffff?text=Vietnam+Airlines"
+                            alt="Vietnam Airlines">
+                    </div>
+                    <div class="partner-item">
+                        <img src="https://via.placeholder.com/150x80/ff6b6b/ffffff?text=VietJet+Air" alt="VietJet Air">
+                    </div>
+                    <div class="partner-item">
+                        <img src="https://via.placeholder.com/150x80/4ecdc4/ffffff?text=Bamboo+Airways"
+                            alt="Bamboo Airways">
+                    </div>
+                    <div class="partner-item">
+                        <img src="https://via.placeholder.com/150x80/45b7d1/ffffff?text=Thai+Airways"
+                            alt="Thai Airways">
+                    </div>
+                    <div class="partner-item">
+                        <img src="https://via.placeholder.com/150x80/96ceb4/ffffff?text=Singapore+Airlines"
+                            alt="Singapore Airlines">
+                    </div>
+                    <div class="partner-item">
+                        <img src="https://via.placeholder.com/150x80/feca57/ffffff?text=Malaysia+Airlines"
+                            alt="Malaysia Airlines">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA Section -->
+        <section class="cta-section">
+            <div class="container">
+                <div class="cta-content">
+                    <h2>Sẵn sàng cho chuyến đi tiếp theo?</h2>
+                    <p>Hãy để SkyTravel giúp bạn lên kế hoạch cho chuyến du lịch hoàn hảo</p>
+                    <a href="index.html" class="cta-btn">Bắt đầu ngay</a>
+                </div>
+            </div>
+        </section>
+    </section>
+</body>
+</html>

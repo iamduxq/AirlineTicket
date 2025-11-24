@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/decorators}">
+
+<head>
+    <title>Quản lý đặt vé</title>
+</head>
+
+<body>
+<section layout:fragment="content">
+    <!-- Page Header -->
+    <section class="page-header">
+        <div class="container">
+            <h1>Quản lý đặt vé</h1>
+            <p>Theo dõi và quản lý các chuyến bay của bạn</p>
+        </div>
+    </section>
+
+    <!-- Booking Search -->
+    <section class="booking-search">
+        <div class="container">
+            <div class="search-form">
+                <h2>Tìm kiếm đặt vé</h2>
+                <form id="bookingSearchForm">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="bookingCode">Mã đặt vé</label>
+                            <input type="text" id="bookingCode" name="bookingCode"
+                                   placeholder="Nhập mã đặt vé (VD: SKY123456)">
+                        </div>
+                        <div class="form-group">
+                            <label for="lastName">Họ</label>
+                            <input type="text" id="lastName" name="lastName" placeholder="Nhập họ">
+                        </div>
+                    </div>
+                    <button type="submit" class="search-btn">
+                        <i class="fas fa-search"></i>
+                        Tìm kiếm
+                    </button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Booking Results -->
+    <section id="bookingResults" class="booking-results" style="display: none;">
+        <div class="container">
+            <h2>Thông tin đặt vé</h2>
+            <div id="bookingDetails"></div>
+        </div>
+    </section>
+
+    <section class="result-bookings">
+        <div class="container">
+            <h2>Danh sách đặt vé của bạn</h2>
+            <p>Dưới đây là các chuyến bay bạn đã đặt</p>
+            <div class="bookings-grid" id="userBookings">
+                <p>Đang tải danh sách vé...</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Booking Management Features -->
+    <section class="management-features">
+        <div class="container">
+            <h2>Tính năng quản lý</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <i class="fas fa-search"></i>
+                    <h3>Tìm kiếm đặt vé</h3>
+                    <p>Tìm kiếm đặt vé bằng mã đặt vé hoặc thông tin cá nhân</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fas fa-edit"></i>
+                    <h3>Sửa đổi thông tin</h3>
+                    <p>Thay đổi thông tin hành khách, ngày bay hoặc hạng ghế</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fas fa-times"></i>
+                    <h3>Hủy đặt vé</h3>
+                    <p>Hủy đặt vé và nhận hoàn tiền theo chính sách</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fas fa-download"></i>
+                    <h3>Tải vé điện tử</h3>
+                    <p>Tải xuống vé điện tử và các tài liệu liên quan</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fas fa-bell"></i>
+                    <h3>Thông báo</h3>
+                    <p>Nhận thông báo về thay đổi chuyến bay và cập nhật</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fas fa-headset"></i>
+                    <h3>Hỗ trợ</h3>
+                    <p>Liên hệ hỗ trợ 24/7 cho mọi vấn đề</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Booking Modal -->
+    <div id="bookingModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Chi tiết đặt vé</h2>
+            <div id="modalContent"></div>
+        </div>
+    </div>
+
+    <!-- Edit Modal -->
+    <div id="editModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeEditBookingModal()">&times;</span>
+            <h2 style="text-align: center">Sửa thông tin hành khách</h2>
+            <form id="editForm">
+                <div class="form-group">
+                    <label for="editPassengerName">Họ tên</label>
+                    <input type="text" id="editPassengerName" required>
+                </div>
+                <div class="form-group">
+                    <label for="editPassengerBirth">Ngày sinh</label>
+                    <input type="date" id="editPassengerBirth" required>
+                </div>
+                <div class="form-group">
+                    <label for="editPassengerGender">Giới tính</label>
+                    <select id="editPassengerGender">
+                        <option value="1">Nam</option>
+                        <option value="2">Nữ</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="editCitizenId">CCCD / Passport</label>
+                    <input type="text" id="editCitizenId" required>
+                </div>
+                <div class="form-group">
+                    <label for="editNationality">Quốc tịch</label>
+                    <input type="text" id="editNationality" placeholder="VD: VN" required>
+                </div>
+                <button type="button" class="edit-btn edit" style="margin-top: 10px;" onclick="submitEdit()">Xác nhận
+                    sửa
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Booking Detais -->
+    <div id="detailsModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeDetailsBookingModal()">&times;</span>
+            <h2 style="text-align: center; font-weight: bold;">Chi tiết đặt vé</h2>
+            <div id="details-content"></div>
+        </div>
+    </div>
+
+</section>
+
+</body>
+
+</html>

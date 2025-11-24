@@ -1,0 +1,265 @@
+🎯 Đề tài: Ứng dụng quản lý bán vé máy bay
+1. Mục tiêu
+
+Xây dựng ứng dụng web quản lý việc đặt vé, chuyến bay, khách hàng, và thanh toán, sử dụng Spring Boot + Spring Data JPA + MySQL.
+Người dùng có thể tra cứu chuyến bay, đặt vé, hủy vé, xem lịch sử đặt vé.
+Quản trị viên có thể thêm/sửa/xóa chuyến bay, xem doanh thu, quản lý khách hàng.
+
+2. Các vai trò
+Vai trò	Quyền hạn
+Người dùng (Khách hàng)	Đăng ký, đăng nhập, tìm chuyến bay, đặt vé, xem vé của mình
+Quản trị viên (Admin)	Quản lý chuyến bay, sân bay, người dùng, và thống kê
+3. Chức năng chi tiết
+🧍 Đối với khách hàng
+
+Đăng ký tài khoản
+
+Đăng nhập / Đăng xuất
+
+Tìm chuyến bay theo:
+
+Nơi đi, nơi đến
+
+Ngày khởi hành
+
+Hãng hàng không (nếu có)
+
+Đặt vé (chọn chuyến bay + thông tin hành khách)
+
+Xem danh sách vé đã đặt
+
+Hủy vé (nếu chưa bay)
+
+🛫 Đối với quản trị viên
+
+Quản lý chuyến bay (CRUD):
+
+Mã chuyến bay, nơi đi, nơi đến, thời gian cất cánh/hạ cánh, số ghế, giá vé
+
+Quản lý sân bay
+
+Quản lý người dùng/khách hàng
+
+Thống kê:
+
+Doanh thu theo tháng
+
+Số lượng vé bán được theo tuyến bay
+
+Tỷ lệ hủy vé
+
+4. Yêu cầu kỹ thuật
+
+Backend: Spring Boot (RESTful API)
+
+Spring Data JPA (MySQL)
+
+Spring Security (đăng nhập, phân quyền)
+
+ModelMapper / Converter cho DTO
+
+Frontend: (nếu bạn muốn mở rộng sau)
+
+HTML/CSS/JS hoặc React/Vue
+
+Database: MySQL
+
+Entity gợi ý (chưa cần code):
+
+Flight (chuyến bay)
+
+Airport (sân bay)
+
+Ticket (vé)
+
+User (người dùng)
+
+Payment (thanh toán)
+
+5. Nhiệm vụ theo giai đoạn
+Giai đoạn	Mục tiêu									Kết quả mong đợi
+1		Thiết kế database (ERD)								Mối quan hệ giữa Flight, Ticket, User, Airport
+2		Xây dựng các entity + repository						Dữ liệu có thể CRUD cơ bản
+3		Tạo API cho các chức năng chính (đặt vé, tìm chuyến bay, quản lý chuyến bay)	REST API chạy ổn
+4		Tích hợp Spring Security							Phân quyền khách hàng / admin
+5		Viết giao diện (nếu có) hoặc test bằng Postman					Toàn bộ quy trình đặt vé hoạt động
+6 (tuỳ chọn)	Thêm tính năng nâng cao: xuất hoá đơn PDF, gửi mail xác nhận vé			Dự án hoàn thiện hơn
+7. Yêu cầu nộp bài (nếu là bài tập nhóm hoặc đồ án)
+
+Báo cáo mô tả:
+
+Kiến trúc hệ thống
+
+Mô hình ERD
+
+Sơ đồ use case
+
+Danh sách API endpoint
+
+Demo Postman hoặc video chạy thử
+
+
+
+
+🧩 Nhiệm vụ chi tiết
+🧱 1️⃣. Tạo package cấu trúc dự án
+
+Trong thư mục src/main/java/..., tạo cấu trúc chuẩn:
+
+com.airlinesystem/
+ ├── controller/
+ ├── dto/
+ ├── entity/
+ ├── repository/
+ ├── service/
+ │    ├── impl/
+ ├── converter/
+ ├── exception/
+ ├── security/
+ └── AirlineSystemApplication.java
+
+
+👉 Giải thích:
+
+entity/: chứa các entity đã mô tả (User, Flight, Ticket, v.v.)
+
+repository/: chứa interface extends JpaRepository
+
+service/: chứa logic nghiệp vụ
+
+dto/ và converter/: sẽ dùng ở giai đoạn sau (mapping DTO ↔ Entity)
+
+📄 2️⃣. Tạo các entity chính
+
+Tạo các entity User, Airport, Flight, Ticket, Payment, Passenger, Discount, Notification.
+Chú ý:
+
+Dùng kiểu byte cho status.
+
+Áp dụng đúng quan hệ:
+
+@ManyToOne (ở phía “nhiều”)
+
+@OneToMany(mappedBy = “…”) (ở phía “một”)
+
+@OneToOne (với Payment)
+
+Dùng @JoinColumn để đặt tên cột khóa ngoại.
+
+🧠 Tip:
+
+Dùng @Table(name = "flight") để đặt tên bảng.
+
+Dùng @Column(length = 50, nullable = false) cho các chuỗi quan trọng.
+
+Dùng BigDecimal cho giá (price, amount).
+
+Thêm @CreationTimestamp cho các trường createdDate.
+
+🧩 3️⃣. Tạo Repository
+
+Tạo từng file trong repository/ như sau:
+
+Tên file		Kế thừa	Chức năng
+UserRepository		JpaRepository<User, Long>		Tìm user theo username, email
+AirportRepository	JpaRepository<Airport, Long>		CRUD sân bay
+FlightRepository	JpaRepository<Flight, Long>		Tìm chuyến bay theo mã, sân bay đi/đến
+TicketRepository	JpaRepository<Ticket, Long>		Lấy vé theo user hoặc flight
+PaymentRepository	JpaRepository<Payment, Long>		CRUD thanh toán
+PassengerRepository	JpaRepository<Passenger, Long>		CRUD hành khách
+DiscountRepository	JpaRepository<Discount, Long>		CRUD mã giảm giá
+NotificationRepository	JpaRepository<Notification, Long>	CRUD thông báo
+
+🧠 Gợi ý thêm method:
+
+List<Flight> findByDepartureAirportAndArrivalAirport(...)
+
+List<Ticket> findByUserId(Long userId)
+
+Optional<User> findByUsername(String username)
+
+⚙️ 4️⃣. Kết nối MySQL
+
+Cập nhật application.properties:
+
+spring.datasource.url=jdbc:mysql://localhost:3306/airline_db
+spring.datasource.username=root
+spring.datasource.password=123456
+spring.jpa.hibernate.ddl-auto=update
+spring.jpa.show-sql=true
+spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.MySQL8Dialect
+
+
+👉 Mục tiêu:
+Khi bạn chạy ứng dụng, Hibernate tự tạo bảng trong database airline_db theo các entity vừa định nghĩa.
+
+✅ 5️⃣. Kiểm thử
+
+Sau khi tạo xong entity + repository:
+
+Chạy ứng dụng
+
+Vào MySQL → kiểm tra các bảng được tạo ra
+
+Thử viết một CommandLineRunner test:
+
+Thêm 1 user
+
+Thêm 1 sân bay
+
+Thêm 1 chuyến bay
+
+Thêm 1 vé gắn với user & flight
+→ Nếu mọi thứ liên kết đúng là bạn hoàn thành giai đoạn này.
+
+🧭 Kết quả mong đợi
+
+✅ Toàn bộ bảng được tạo trong MySQL đúng quan hệ
+✅ Các repository hoạt động CRUD ổn định
+✅ Chạy được ứng dụng không lỗi Entity/Mapping
+
+
+
+
+
+
+
+
+CẤU TRÚC FILE RESOURCES SPRING
+src/
+└── main/
+    └── resources/
+        ├── static/                 <-- Nơi chứa tài nguyên tĩnh
+        │   ├── css/                <-- Các file CSS
+        │   │   └── style.css
+        │   ├── js/                 <-- Các file JavaScript
+        │   │   └── script.js
+        │   ├── images/             <-- Hình ảnh giao diện
+        │   │   └── logo.png
+        │   └── fonts/              <-- Font chữ (nếu có)
+        │       └── roboto.ttf
+        │
+        ├── templates/              <-- Các file HTML Thymeleaf
+        │   ├── layout/             <-- Template layout dùng chung
+        │   │   └── main.html
+        │   ├── fragments/          <-- Các phần giao diện tái sử dụng
+        │   │   ├── header.html
+        │   │   ├── footer.html
+        │   │   └── navbar.html
+        │   ├── home.html           <-- Trang chủ
+        │   ├── search.html         <-- Trang tìm kiếm chuyến bay
+        │   ├── results.html        <-- Kết quả tìm kiếm
+        │   ├── booking.html        <-- Trang đặt vé
+        │   ├── confirmation.html   <-- Xác nhận đặt vé
+        │   ├── login.html          <-- Đăng nhập
+        │   └── register.html       <-- Đăng ký
+        │
+        └── application.properties  <-- Cấu hình Spring Boot
+
+
+🔧 Bạn nên chọn hướng nào?
+Mục tiêu / Kiểu dự án			Gợi ý hướng dùng
+Dự án đơn giản, nội bộ			Spring Boot + Thymeleaf (hướng 1)
+Dự án lớn, nhiều người dev		Spring Boot REST API + React/Vue (hướng 2)
+Ưu tiên tốc độ, dễ triển khai		Thymeleaf (x)
+Ưu tiên giao diện hiện đại, SPA		React/Vue + Spring REST
