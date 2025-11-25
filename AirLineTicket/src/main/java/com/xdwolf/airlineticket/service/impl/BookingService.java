@@ -1,5 +1,17 @@
 package com.xdwolf.airlineticket.service.impl;
 
+import com.itextpdf.barcodes.BarcodeQRCode;
+import com.itextpdf.kernel.colors.ColorConstants;
+import com.itextpdf.kernel.font.PdfFont;
+import com.itextpdf.kernel.font.PdfFontFactory;
+import com.itextpdf.kernel.geom.PageSize;
+import com.itextpdf.kernel.pdf.PdfDocument;
+import com.itextpdf.kernel.pdf.PdfWriter;
+import com.itextpdf.kernel.pdf.xobject.PdfFormXObject;
+import com.itextpdf.layout.Document;
+import com.itextpdf.layout.element.Image;
+import com.itextpdf.layout.element.Paragraph;
+import com.itextpdf.layout.properties.TextAlignment;
 import com.xdwolf.airlineticket.component.ServiceHelper;
 import com.xdwolf.airlineticket.dto.BookingDTO;
 import com.xdwolf.airlineticket.dto.PassengerDTO;
@@ -10,8 +22,14 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.swing.text.StyleConstants;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.text.NumberFormat;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.Locale;
 
 @Service
 @RequiredArgsConstructor
@@ -148,8 +166,48 @@ public class BookingService implements IBookingService {
     }
 
     @Override
-    public byte[] exportTicketPdf(Long bookingId) {
+    public byte[] exportTicketPdf(Long bookingId) throws IOException {
+        BookingEntity booking = serviceHelper.bookingRepository.findById(bookingId)
+                .orElseThrow(() -> new RuntimeException("Không tìm thấy booking"));
 
-        return new byte[0];
+        TicketEntity ticket = booking.getTicket();
+        FlightEntity flight = ticket.getFlight();
+        PassengerEntity passenger = ticket.getPassenger().get(0);
+
+        ByteArrayOutputStream out = new ByteArrayOutputStream();
+        PdfWriter writer = new PdfWriter(out);
+        PdfDocument pdf = new PdfDocument(writer);
+
+        float width = 420;
+        float height = 530;
+        pdf.setDefaultPageSize(new PageSize(width, height));
+        Document document = new Document(pdf);
+        PdfFont font = PdfFontFactory.createFont("./static/fonts/Roboto-Regular.ttf", PdfFontFactory.EmbeddingStrategy.PREFER_EMBEDDED);
+        PdfFont fontBold = PdfFontFactory.createFont("./static/fonts/Roboto-Bold.ttf", PdfFontFactory.EmbeddingStrategy.PREFER_EMBEDDED);
+        document.setFont(font);
+        Paragraph title = new Paragraph("VÉ MÁY BAY ĐIỆN TỬ")
+                .setFontSize(20)
+                .setFont(fontBold)
+                .setTextAlignment(TextAlignment.CENTER);
+        document.add(title);
+        String qrText = "https://localhost:8888/booking-management?id=" + bookingId;
+        BarcodeQRCode qr = new BarcodeQRCode(qrText);
+        PdfFormXObject qrObject = qr.createFormXObject(ColorConstants.BLACK, pdf);
+        Image qrImage = new Image(qrObject).setWidth(80).setHeight(80).setTextAlignment(TextAlignment.CENTER);
+        document.add(qrImage);
+        document.add(new Paragraph("Mã vé: " + ticket.getTicketCode()).setFontSize(14));
+        document.add(new Paragraph("Họ và tên: " + passenger.getFullname()).setFontSize(14));
+        document.add(new Paragraph("Giới tính: " + (passenger.getGender().equals("1") ? "Nam" : "Nữ")).setFontSize(14));
+        document.add(new Paragraph("Ngày sinh: " + passenger.getDateOfBirth().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"))).setFontSize(14));
+        document.add(new Paragraph("CCCD / Passport: " + passenger.getPassportNumber()).setFontSize(14));
+        document.add(new Paragraph("Quốc tịch: " + passenger.getNationality()).setFontSize(14));
+        document.add(new Paragraph("Chuyến bay: " + flight.getAirline() + " " + flight.getFightCode()).setFontSize(14));
+        document.add(new Paragraph("Giờ bay: " + flight.getDepartureTime().format(DateTimeFormatter.ofPattern("HH:mm dd/MM/yyyy"))).setFontSize(14));
+        document.add(new Paragraph("Điểm bay: " + flight.getDepartureAirport().getCity()).setFontSize(14));
+        document.add(new Paragraph("Điểm đến: " + flight.getArrivalAirport().getCity()).setFontSize(14));
+        NumberFormat vndFormat = NumberFormat.getInstance(new Locale("vi", "VN"));
+        document.add(new Paragraph("Giá tiền: " + vndFormat.format(flight.getPrice()) + " VND").setFontSize(14));
+        document.close();
+        return out.toByteArray();
     }
 }

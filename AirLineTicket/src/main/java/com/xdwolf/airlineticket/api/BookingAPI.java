@@ -6,9 +6,13 @@ import com.xdwolf.airlineticket.dto.PassengerDTO;
 import com.xdwolf.airlineticket.dto.requestDTO.BookingRequestDTO;
 import com.xdwolf.airlineticket.service.IBookingService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.IOException;
 import java.util.List;
 
 @CrossOrigin(origins = "http://localhost:8888")
@@ -72,9 +76,18 @@ public class BookingAPI {
         }
     }
 
-//    // Xuất ra pdf
-//    @GetMapping("/{bookingId}/ticket-pdf")
-//    public ResponseEntity<byte[]>exportTicketPdf(@PathVariable Long bookingId) {
-////        byte[] pdfByte = bookingService.
-//    }
+    // Xuất ra pdf
+    @GetMapping("/{bookingId}/ticket-pdf")
+    public ResponseEntity<byte[]>exportTicketPdf(@PathVariable Long bookingId) {
+        byte[] pdfByte = null;
+        try {
+            pdfByte = bookingService.exportTicketPdf(bookingId);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_PDF);
+        headers.setContentDispositionFormData("filename", "ticket_" + bookingId + ".pdf");
+        return new ResponseEntity<>(pdfByte, headers, HttpStatus.OK);
+    }
 }

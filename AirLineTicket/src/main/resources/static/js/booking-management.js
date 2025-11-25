@@ -138,6 +138,10 @@ function cancelBooking(id) {
         });
 }
 
+function downloadPdf(bookingId) {
+    window.open(`api/booking/${bookingId}/ticket-pdf`, "_blank");
+}
+
 function viewBooking(id) {
     // alert("Tính năng xem chi tiết vé đang được phát triển");
     fetch(`/api/booking/${id}`)
@@ -173,6 +177,9 @@ function viewBooking(id) {
                 <hr>
                 <h3>Hành khách</h3>
                 <ul style="line-height: 1.6;">${passengerList}</ul>
+                <button class="action-btn pdf" onclick="downloadPdf(${b.id})">
+                    <i class="fa-solid fa-file-pdf">Tải vé điện tử</i>
+                </button>
             `;
             document.getElementById("details-content").innerHTML = html;
             document.getElementById("detailsModal").style.display = "block";
