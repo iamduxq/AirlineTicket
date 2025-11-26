@@ -16,8 +16,7 @@ import java.util.Optional;
 public class UserService implements IUserService {
 
     private final ServiceHelper service;
-
-    private final BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+    private final BCryptPasswordEncoder passwordEncoder;
 
     @Override
     public UserDTO registerUser(UserDTO user) {

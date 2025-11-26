@@ -5,18 +5,20 @@ let selectedFlightPrice = null;
 
 // Booking Modal Handle
 function openBookingModal(flightId, price) {
-    const username = localStorage.getItem("username") || sessionStorage.getItem("username");
-
-    if (!username) {
-        alert("Vui lòng đăng nhập trước khi đặt vé!");
-        window.location.href = "/auth/login";
-        return;
-    }
-
-    selectedFlightId = flightId;
-    selectedFlightPrice = price;
-
-    document.getElementById("bookingModal").style.display = "block";
+    fetch("/api/booking/user/me")
+        .then(res => {
+            if (res.status === 401 || res.status === 403) {
+                alert("Vui lòng đăng nhập trước khi đặt vé!");
+                window.location.href = "/auth/login";
+                return;
+            }
+            selectedFlightId = flightId;
+            selectedFlightPrice = price;
+            document.getElementById("bookingModal").style.display = "block";
+        }) .catch(err => {
+        console.error("Lỗi kiểm tra đăng nhập: ", err);
+        alert("Không thể kiểm tra trạng thái đăng nhập!");
+    });
 }
 
 

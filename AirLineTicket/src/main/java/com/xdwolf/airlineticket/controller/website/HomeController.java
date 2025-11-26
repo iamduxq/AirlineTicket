@@ -43,4 +43,9 @@ public class HomeController {
     public String register() {
         return "auth/register";
     }
+
+    @GetMapping("/admin")
+    public String loginAdmin() {
+        return "admin/das";
+    }
 }

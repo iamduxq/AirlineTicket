@@ -15,13 +15,17 @@
                     <li><a th:href="@{/about}">Giới thiệu</a></li>
                     <li><a th:href="@{/contact}">Liên hệ</a></li>
                     <li><a th:href="@{/booking-management}">Quản lý vé</a></li>
-                    <li id="login-menu"><a th:href="@{/auth/login}">Đăng nhập</a></li>
-                    <li id="register-menu"><a th:href="@{/auth/register}" class="register-link">Đăng ký</a></li>
-                    <li class="user-dropdown" id="user-menu">
-                        <a href="#" id="userFullName"></a>
+                    <li id="login-menu" th:if="${fullname == null}">
+                        <a th:href="@{/auth/login}">Đăng nhập</a>
+                    </li>
+                    <li id="register-menu" th:if="${fullname == null}">
+                        <a th:href="@{/auth/register}" class="register-link">Đăng ký</a>
+                    </li>
+                    <li class="user-dropdown" id="user-menu" th:if="${fullname != null}">
+                        <a href="#" id="userFullName" th:text="${fullname}"></a>
                         <ul class="dropdown">
                             <li><a href="" id="setting">Cài đặt</a></li>
-                            <li><a href="" id="logoutBtn">Đăng xuất</a></li>
+                            <li><a th:href="@{/auth/logout}" id="logoutBtn">Đăng xuất</a></li>
                         </ul>
                     </li>
                 </ul>

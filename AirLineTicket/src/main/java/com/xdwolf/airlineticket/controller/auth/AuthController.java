@@ -15,22 +15,22 @@ public class AuthController {
     private final IUserService userService;
 
     @GetMapping("/login")
-    public String LoginPage(Model model) {
+    public String LoginPage(Model model, @RequestParam(value = "error", required = false) String error,
+                            @RequestParam(value = "logout", required = false) String logout) {
         model.addAttribute("userDTO", new UserDTO());
+        if (error != null) {
+            model.addAttribute("error", "Sai tài khoản hoặc mật khẩu!");
+        }
+        if (logout != null) {
+            model.addAttribute("message", "Bạn đã đăng xuất!");
+        }
         return "auth/login";
     }
 
-    @PostMapping("/login")
-    public String loginSubmit(@ModelAttribute("userDTO") UserDTO userDTO, Model model) {
-        try {
-            UserDTO result = userService.loginUser(userDTO);
-            model.addAttribute("user", result);
-            return "redirect:/";
-        } catch (RuntimeException  e) {
-            model.addAttribute("error", e.getMessage());
-            return "auth/login";
-        }
-    }
+//    @PostMapping("/login")
+//    public String loginSubmit(@ModelAttribute("userDTO") UserDTO userDTO, Model model) {
+//        return "redirect:/auth/login";
+//    }
 
     @GetMapping("/register")
     public String registerPage(Model model) {
@@ -42,8 +42,7 @@ public class AuthController {
     public String registerSubmit(@ModelAttribute("userDTO") UserDTO userDTO, Model model) {
         try {
             userService.registerUser(userDTO);
-            model.addAttribute("message", "Đăng ký thành công");
-            return "redirect:auth/login";
+            return "redirect:auth/login?registered=true";
         } catch (RuntimeException e) {
             model.addAttribute("error", e.getMessage());
             return "auth/register";

@@ -10,10 +10,10 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
-import java.util.List;
 
 @CrossOrigin(origins = "http://localhost:8888")
 @RestController
@@ -35,8 +35,9 @@ public class BookingAPI {
     }
 
     // Quản lý vé theo username
-    @GetMapping("/user/{username}")
-    public ResponseEntity<?> getUserBookings(@PathVariable String username) {
+    @GetMapping("/user/me")
+    public ResponseEntity<?> getUserBookings(Authentication authentication) {
+        String username = authentication.getName();
         return ResponseEntity.ok(bookingService.findByUsername(username));
     }
 
@@ -51,7 +52,12 @@ public class BookingAPI {
 
     // Đặt vé
     @PostMapping("/book-ticket")
-    public BookingDTO bookTicket(@RequestBody BookingRequestDTO dto) {
+    public BookingDTO bookTicket(@RequestBody BookingRequestDTO dto, Authentication authentication) {
+        if (authentication == null || !authentication.isAuthenticated()) {
+            throw new RuntimeException("Bạn phải đăng nhập để đặt vé!");
+        }
+        String username = authentication.getName();
+        dto.setUsername(username);
         return bookingService.bookTicket(dto);
     }
 

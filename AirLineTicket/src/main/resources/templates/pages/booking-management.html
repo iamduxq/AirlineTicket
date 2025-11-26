@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{layout/decorators}">
 
 <head>
@@ -152,9 +153,13 @@
             <div id="details-content"></div>
         </div>
     </div>
-
 </section>
-
+<!--<script>-->
+<!--    const CURRENT_USERNAME = /*[[${username}]]*/ null;-->
+<!--</script>-->
+<th:block layout:fragment="scripts">
+    <script th:src="@{/js/booking-management.js}"></script>
+</th:block>
 </body>
 
 </html>

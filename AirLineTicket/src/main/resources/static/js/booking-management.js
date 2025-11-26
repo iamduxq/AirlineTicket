@@ -1,14 +1,7 @@
 document.addEventListener("DOMContentLoaded", () => {
-
-    const username = localStorage.getItem("username") || sessionStorage.getItem("username");
     const bookingsContainer = document.getElementById("userBookings");
 
-    if (!username) {
-        bookingsContainer.innerHTML = `<p>Vui lòng đăng nhập để xem danh sách vé.</p>`;
-        return;
-    }
-
-    fetch(`/api/booking/user/${username}`)
+    fetch(`/api/booking/user/me`)
         .then(res => res.json())
         .then(bookings => {
 
@@ -237,10 +230,8 @@ document.getElementById("bookingForm")?.addEventListener("submit", function (e) 
         nationality: nationality
     };
 
-    const username = localStorage.getItem("username") || sessionStorage.getItem("username");
 
     const payload = {
-        username: username,
         flightId: selectedFlightId,
         seatNumber: 1,
         totalPrice: selectedFlightPrice,
