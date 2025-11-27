@@ -9,7 +9,6 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 @Configuration
 @RequiredArgsConstructor
@@ -46,10 +45,10 @@ public class SecurityConfig {
                                 ).permitAll()
 
                                 // Cho phép các API public
-                                .requestMatchers("/api/flight/**", "api/airport/**").permitAll()
+                                .requestMatchers("/api/flight/**", "/api/airport/**").permitAll()
 
                                 // API yêu cầu login
-                                .requestMatchers("api/booking/**").authenticated()
+                                .requestMatchers("/api/booking/**").authenticated()
                                 .requestMatchers("/admin/**").hasRole("ADMIN")
 
                                 //  Các request khác yêu cầu login

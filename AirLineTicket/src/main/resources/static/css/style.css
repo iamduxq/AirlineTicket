@@ -1414,9 +1414,6 @@ select:focus {
     transition: transform 0.3s ease;
 }
 
-.booking-card:hover {
-    transform: translateY(-5px);
-}
 
 .booking-header {
     display: flex;
@@ -1539,7 +1536,6 @@ select:focus {
 }
 
 .action-btn:hover {
-    transform: translateY(-2px);
     opacity: 0.9;
 }
 

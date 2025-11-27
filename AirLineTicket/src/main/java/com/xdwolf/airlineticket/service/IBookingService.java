@@ -15,4 +15,5 @@ public interface IBookingService {
     BookingDTO cancelBooking(Long bookingId);
     BookingDTO getBookingDetails(Long bookingId);
     byte[]exportTicketPdf(Long bookingId) throws IOException;
+    BookingDTO restoreBooking(Long bookingId);
 }

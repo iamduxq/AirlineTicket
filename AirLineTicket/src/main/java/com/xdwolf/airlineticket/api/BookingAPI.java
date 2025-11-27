@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
 
-@CrossOrigin(origins = "http://localhost:8888")
 @RestController
 @RequestMapping("/api/booking")
 @RequiredArgsConstructor
@@ -95,5 +94,14 @@ public class BookingAPI {
         headers.setContentType(MediaType.APPLICATION_PDF);
         headers.setContentDispositionFormData("filename", "ticket_" + bookingId + ".pdf");
         return new ResponseEntity<>(pdfByte, headers, HttpStatus.OK);
+    }
+
+    @PutMapping("/restore/{id}")
+    private ResponseEntity<?> restoreBooking(@PathVariable Long id) {
+        try {
+            return ResponseEntity.ok(bookingService.restoreBooking(id));
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
     }
 }

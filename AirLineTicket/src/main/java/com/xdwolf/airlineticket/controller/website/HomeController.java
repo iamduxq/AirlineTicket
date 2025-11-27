@@ -5,7 +5,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 
-@CrossOrigin(origins = "http://localhost:8888")
 @Controller
 public class HomeController {
     @GetMapping({"/", "/index"})

@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.*;
 import java.time.LocalDate;
 import java.util.List;
 
-@CrossOrigin(origins = "http://localhost:8888")
 @RequestMapping("/api/flight")
 @RestController
 @RequiredArgsConstructor

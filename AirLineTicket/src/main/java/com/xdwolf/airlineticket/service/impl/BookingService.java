@@ -210,4 +210,28 @@ public class BookingService implements IBookingService {
         document.close();
         return out.toByteArray();
     }
+
+    @Override
+    @Transactional
+    public BookingDTO restoreBooking(Long bookingId) {
+        BookingEntity booking = serviceHelper.bookingRepository.findById(bookingId)
+                .orElseThrow(() -> new RuntimeException("Booking không tồn tại"));
+        TicketEntity ticket = booking.getTicket();
+        if (ticket == null) {
+            throw new RuntimeException("Vé không tồn tại");
+        }
+        if (ticket.getStatus() != 0) {
+            throw new RuntimeException("Không thể thu hồi vì vé không ở trạng thái hủy");
+        }
+        FlightEntity flight = ticket.getFlight();
+        if (flight != null) {
+            flight.setAvailableSeat(flight.getAvailableSeat() - 1);
+            serviceHelper.flightRepository.save(flight);
+        }
+        ticket.setStatus((byte) 1);
+        booking.setStatus("CONFIRMED");
+        serviceHelper.ticketRepository.save(ticket);
+        serviceHelper.bookingRepository.save(booking);
+        return serviceHelper.bookingConverter.toDTO(booking);
+    }
 }

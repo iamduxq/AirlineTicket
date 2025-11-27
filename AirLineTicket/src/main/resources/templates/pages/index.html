@@ -206,8 +206,11 @@
             </div>
         </div>
     </section>
+
     <th:block layout:fragment="scripts">
-        <script th:src="@{/js/flight-search.js}"></script>
+        <script type="module" th:src="@{/js/flight/flight-search.js}"></script>
+        <script type="module" th:src="@{/js/booking/booking-modal.js}"></script>
+        <script type="module" th:src="@{/js/booking/booking.js}"></script>
     </th:block>
 </body>
 </html>
