@@ -1,4 +1,3 @@
-/* ---------------- NAV MENU CHUẨN SÁT ---------------- */
 .nav-menu {
     display: flex;
     align-items: center;
@@ -23,7 +22,6 @@
     color: #ffd700;
 }
 
-/* ---------------- NÚT ĐĂNG KÝ ---------------- */
 #register-menu > a {
     background: #ffd700;
     color: #333;
@@ -35,14 +33,12 @@
     box-shadow: 0 3px 6px rgba(255, 215, 0, 0.25);
 }
 
-/* Không bay lên nữa */
 #register-menu > a:hover {
     background: #ffed4e;
     box-shadow: 0 5px 10px rgba(255, 215, 0, 0.35);
     transform: none;
 }
 
-/* Khi trang active */
 #register-menu > a.active {
     background: #ffe665;
     color: #333;
@@ -53,24 +49,18 @@
     align-items: center;
 }
 
-/* Nút user */
 .user-dropdown > a {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-
     padding: 8px 60px;
     border-radius: 10px;
     background-color: #ffd700 !important;
     color: #333 !important;
-
-    /* Font */
     font-weight: 600;
     font-size: 15px;
-
     text-decoration: none;
     box-shadow: 0 4px 10px rgba(255, 215, 0, 0.25);
-
     transition: background 0.25s ease, box-shadow 0.25s ease;
 }
 
@@ -79,7 +69,6 @@
     box-shadow: 0 6px 12px rgba(255, 215, 0, 0.35);
 }
 
-/* Dropdown menu */
 .user-dropdown .dropdown {
     display: none;
     position: absolute;
@@ -92,7 +81,6 @@
     border-radius: 12px;
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
     z-index: 2000;
-
     opacity: 0;
     transform: translateY(6px);
     transition: opacity 0.25s ease, transform 0.25s ease;
