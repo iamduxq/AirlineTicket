@@ -24,4 +24,7 @@ public interface FlightRepository extends JpaRepository<FlightEntity, Long> {
                                              @Param("startOfDay") LocalDateTime startOfDay,
                                              @Param("endOfDay") LocalDateTime endOfDay
     );
+
+    long countByStatus(int status);
+    long count();
 }

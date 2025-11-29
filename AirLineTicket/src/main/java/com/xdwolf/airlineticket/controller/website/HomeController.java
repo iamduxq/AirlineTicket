@@ -2,7 +2,6 @@ package com.xdwolf.airlineticket.controller.website;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
@@ -45,6 +44,6 @@ public class HomeController {
 
     @GetMapping("/admin")
     public String loginAdmin() {
-        return "admin/das";
+        return "redirect:/admin/dashboard";
     }
 }

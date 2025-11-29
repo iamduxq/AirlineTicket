@@ -1,24 +1,130 @@
 <!DOCTYPE html>
-<html lang="en">
-
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin - Dashboard</title>
-    <link rel="stylesheet" href="/static/admin/css/style.css">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin Dashboard - SkyTravel</title>
+    <link rel="icon" type="image/x-icon" th:href="@{/images/Air_icon_54963.png}">
+    <link rel="stylesheet" th:href="@{/css/dashboard.css}">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" th:href="@{/css/fontawesome/css/all.min.css}">
 </head>
 
-<body>
-    <div class="container">
-        <div class="dashboard-admin">
-            <div class="section-menu">
-                ADMIN
+<body class="bg-gray-100">
+    <div class="flex">
+        <aside class="w-64 bg-blue-900 text-white h-screen fixed flex flex-col">
+            <div class="flex-1 overflow-y-auto p-6 no-scrollbar">
+                <h2 class="text-2xl font-bold mb-6">✈ SkyTravel</h2>
+                <nav class="space-y-3">
+                    <a href="/admin/dashboard" class="block px-4 py-2 rounded bg-blue-700 hover:bg-blue-600">
+                        Dashboard
+                    </a>
+                    <div>
+                        <button onclick="toggleMenu()"
+                                class="w-full flex justify-between items-center px-4 py-2 rounded hover:bg-blue-700">
+                            <span>Quản lý</span>
+                            <span id="icon-arrow" class="transition-transform">▼</span>
+                        </button>
+                        <div id="submenu" class="ml-4 mt-2 space-y-2 hidden">
+                            <a href="/admin/flight" class="block px-4 py-2 rounded hover:bg-blue-700">Chuyến bay</a>
+                            <a href="/admin/booking" class="block px-4 py-2 rounded hover:bg-blue-700">Booking</a>
+                            <a href="/admin/ticket" class="block px-4 py-2 rounded hover:bg-blue-700">Vé</a>
+                            <a href="/admin/airport" class="block px-4 py-2 rounded hover:bg-blue-700">Sân bay</a>
+                            <a href="/admin/user" class="block px-4 py-2 rounded hover:bg-blue-700">Người dùng</a>
+                        </div>
+                    </div>
+                </nav>
             </div>
-            <div class="section-data">
-                ...
+            <div class="p-4 border-t border-blue-800">
+                <a th:href="@{/auth/logout}"
+                   class="block w-full text-center px-4 py-2 rounded bg-blue-700 hover:bg-blue-600">
+                    Đăng xuất
+                </a>
             </div>
-        </div>
-    </div>
-</body>
+        </aside>
 
+        <main class="ml-64 p-8 w-full">
+            <!-- Top Navbar -->
+            <div class="flex justify-between items-center mb-6">
+                <h1 class="text-3xl font-bold">Dashboard</h1>
+
+                <div class="flex items-center gap-4">
+                    <span class="font-semibold" th:text="${#authentication.principal.fullname}"></span> <!-- ${fullname} -->
+                    <img src="https://i.pravatar.cc/40" class="w-10 h-10 rounded-full"  alt=""/>
+                </div>
+            </div>
+
+            <!-- Stats -->
+            <div class="grid grid-cols-4 gap-6 mb-8">
+                <div class="p-6 bg-white rounded-xl shadow hover:shadow-lg">
+                    <h3 class="text-sm text-gray-500">Số chuyến bay</h3>
+                    <p class="text-3xl font-bold text-blue-700" th:text="${completedFlights}">0</p>
+                </div>
+
+                <div class="p-6 bg-white rounded-xl shadow hover:shadow-lg">
+                    <h3 class="text-sm text-gray-500">Tổng booking</h3>
+                    <p class="text-3xl font-bold text-green-600" th:text="${totalBookings}">0</p>
+                </div>
+
+                <div class="p-6 bg-white rounded-xl shadow hover:shadow-lg">
+                    <h3 class="text-sm text-gray-500">Vé đã xuất</h3>
+                    <p class="text-3xl font-bold text-purple-600" th:text="${issuedTickets}">0</p>
+                </div>
+
+                <div class="p-6 bg-white rounded-xl shadow hover:shadow-lg">
+                    <h3 class="text-sm text-gray-500">Doanh thu tháng</h3>
+                    <p class="text-3xl font-bold text-red-600" th:text="${totalPrice}">0 đ</p>
+                </div>
+            </div>
+
+            <!-- Table -->
+            <div class="bg-white p-6 shadow rounded-xl">
+                <h2 class="text-xl font-bold mb-4">Booking gần nhất</h2>
+
+                <table class="w-full border-collapse">
+                    <thead>
+                        <tr class="bg-gray-200 text-left">
+                            <th class="p-3">#ID</th>
+                            <th class="p-3">Khách hàng</th>
+                            <th class="p-3">Chuyến bay</th>
+                            <th class="p-3">Giá vé</th>
+                            <th class="p-3">Ngày đặt</th>
+                            <th class="p-3">Trạng thái</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        <tr class="border-b">
+                            <td class="p-3">BK001</td>
+                            <td class="p-3">Nguyễn Văn A</td>
+                            <td class="p-3">HN → SG</td>
+                            <td class="p-3">2,000,000đ</td>
+                            <td class="p-3">22/11/2025</td>
+                            <td class="p-3 text-green-600 font-bold">Đã xuất vé</td>
+                        </tr>
+
+                        <tr class="border-b">
+                            <td class="p-3">BK002</td>
+                            <td class="p-3">Trần Hải</td>
+                            <td class="p-3">ĐN → SG</td>
+                            <td class="p-3">1,800,000đ</td>
+                            <td class="p-3">21/11/2025</td>
+                            <td class="p-3 text-yellow-600 font-bold">Chưa xuất</td>
+                        </tr>
+
+                        <tr class="border-b">
+                            <td class="p-3">BK003</td>
+                            <td class="p-3">Lê Thu</td>
+                            <td class="p-3">SG → HN</td>
+                            <td class="p-3">2,150,000đ</td>
+                            <td class="p-3">20/11/2025</td>
+                            <td class="p-3 text-green-600 font-bold">Đã xuất vé</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </main>
+    </div>
+    <script th:src="@{/js/admin/dashboard.js}"></script>
+</body>
 </html>
