@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<body>
+<div th:fragment="content">
+    <h2 class="text-xl font-bold mb-4">Booking gần nhất</h2>
+
+    <table class="w-full border-collapse">
+        <thead>
+        <tr class="bg-gray-200 text-left">
+            <th class="p-3">ID</th>
+            <th class="p-3">Khách hàng</th>
+            <th class="p-3">Chuyến bay</th>
+            <th class="p-3">Giá vé</th>
+            <th class="p-3">Ngày đặt</th>
+            <th class="p-3">Trạng thái</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="b : ${pageData.content}" class="border-b">
+            <td class="p-3" th:text="${b.id}"></td>
+            <td class="p-3"
+                th:text="${b.ticket.passenger != null and b.ticket.passenger.size() > 0 ? b.ticket.passenger[0].fullname : 'Không có tên'}">
+            </td>
+            <td class="p-3">
+                <span th:text="${b.ticket.flight.departureAirport.city}"></span>
+                →
+                <span th:text="${b.ticket.flight.arrivalAirport.city}"></span>
+            </td>
+            <td class="p-3"
+                th:text="${#numbers.formatDecimal(b.ticket.totalPrice,0,'POINT',0,'COMMA') + ' đ'}">
+            </td>
+            <td class="p-3"
+                th:text="${#temporals.format(b.bookingDate, 'dd/MM/yyyy')}">
+            </td>
+            <td class="p-3 font-bold"
+                th:classappend="${b.status == 'COMPlETED'} ? 'text-green-600': (${b.status == 'CONFIRMED'} ? 'text-yellow-600' : 'text-red-600')"
+                th:text="${b.status == 'COMPlETED' ? 'Đã xuất vé': (b.status == 'CONFIRMED' ? 'Chưa xuất' : 'Đã hủy')}">
+            </td>
+        </tr>
+        </tbody>
+
+    </table>
+    <div class="mt-6 flex justify-center" id="pagination-container"></div>
+</div>
+</body>
+</html>

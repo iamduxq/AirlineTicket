@@ -11,18 +11,18 @@ public class BaseEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "createdDate")
+    @Column(name = "created_date")
     @CreationTimestamp
     private Date createdDate;
 
-    @Column(name = "modifiedDate")
+    @Column(name = "modified_date")
     @CreationTimestamp
     private Date modifiedDate;
 
-    @Column(name = "createdBy")
+    @Column(name = "created_by")
     private String createdBy;
 
-    @Column(name = "modifiedBy")
+    @Column(name = "modified_by")
     private String modifiedBy;
 
     public Date getCreatedDate() {

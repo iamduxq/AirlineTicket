@@ -21,6 +21,8 @@ public class FlightService implements IFlightService {
 
     private final ServiceHelper service;
 
+
+
     @Override
     @Transactional
     public FlightDTO findFlightById(Long id) {
@@ -45,6 +47,19 @@ public class FlightService implements IFlightService {
         entity.setFightCode(code);
         FlightEntity saved = service.flightRepository.save(entity);
         return service.flightConverter.convertToDTO(saved);
+    }
+
+    @Override
+    public void updateAvailableSeat(Long flightId) {
+        FlightEntity flight = service.flightRepository.findById(flightId)
+                .orElseThrow(() -> new RuntimeException("Flight not found"));
+
+        int capacity = flight.getSeatCapacity();
+        long booked = service.ticketRepository.countActiveTickets(flightId);
+
+        flight.setAvailableSeat(capacity - (int) booked);
+
+        service.flightRepository.save(flight);
     }
 
     @Override

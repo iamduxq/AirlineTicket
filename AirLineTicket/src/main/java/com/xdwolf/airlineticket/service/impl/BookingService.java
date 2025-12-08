@@ -18,6 +18,7 @@ import com.xdwolf.airlineticket.dto.PassengerDTO;
 import com.xdwolf.airlineticket.dto.requestDTO.BookingRequestDTO;
 import com.xdwolf.airlineticket.entity.*;
 import com.xdwolf.airlineticket.service.IBookingService;
+import com.xdwolf.airlineticket.service.IFlightService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -36,6 +37,8 @@ import java.util.Locale;
 public class BookingService implements IBookingService {
 
     private final ServiceHelper serviceHelper;
+    private final IFlightService flightService;
+
 
     @Override
     public BookingDTO createBooking(Long flightId, String username) {
@@ -91,6 +94,7 @@ public class BookingService implements IBookingService {
         ticket.setStatus((byte) 1);
         ticket.setBookingDate(LocalDateTime.now());
         ticket = serviceHelper.ticketRepository.save(ticket);
+        flightService.updateAvailableSeat(ticket.getFlight().getId());
 
         for (PassengerDTO p : request.getPassengers()) {
             PassengerEntity pe = serviceHelper.passengerConverter.toEntity(p);
@@ -154,6 +158,7 @@ public class BookingService implements IBookingService {
         booking.setStatus("CANCELLED");
         ticket.setStatus((byte) 0);
         serviceHelper.ticketRepository.save(ticket);
+        flightService.updateAvailableSeat(ticket.getFlight().getId());
         serviceHelper.bookingRepository.save(booking);
         return serviceHelper.bookingConverter.toDTO(booking);
     }

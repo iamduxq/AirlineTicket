@@ -7,5 +7,6 @@ import java.util.List;
 public interface IFlightService {
     FlightDTO findFlightById(Long id);
     FlightDTO save(FlightDTO flightDTO);
+    void updateAvailableSeat(Long flightId);
     List<FlightDTO> searchFlights(String from, String to, String date);
 }
