@@ -4,6 +4,7 @@ import com.xdwolf.airlineticket.component.ServiceHelper;
 import com.xdwolf.airlineticket.config.CustomUserDetails;
 import com.xdwolf.airlineticket.entity.BookingEntity;
 import com.xdwolf.airlineticket.entity.FlightEntity;
+import com.xdwolf.airlineticket.entity.TicketEntity;
 import com.xdwolf.airlineticket.paging.PagingService;
 import com.xdwolf.airlineticket.service.admin.AdminService;
 import lombok.RequiredArgsConstructor;
@@ -70,6 +71,17 @@ public class AdminAPI {
             model.addAttribute("editFlight", flight);
         }
         model.addAttribute("tableFragment", "admin/fragment/table/flight-table");
+        return "admin/dashboard";
+    }
+
+
+    @GetMapping("/ticket")
+    public String viewBooking(@RequestParam(defaultValue = "0") int page, Model model) {
+        Page<TicketEntity> ticketPage = pagingService.getPage(serviceHelper.ticketRepository, page, 5, "createdDate");
+        model.addAttribute("pageData", ticketPage);
+        model.addAttribute("currentPage", page);
+        model.addAttribute("pageUrl", "/admin/ticket");
+        model.addAttribute("tableFragment", "admin/fragment/table/ticket-table");
         return "admin/dashboard";
     }
 }

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<body>
+<div th:fragment="content">
+    <h2 class="text-xl font-bold mb-4">Danh sách vé</h2>
+
+    <table class="w-full border-collapse">
+        <thead>
+        <tr class="bg-gray-200 text-left">
+            <th class="p-3">ID</th>
+            <th class="p-3">Mã vé</th>
+            <th class="p-3">Chuyến bay</th>
+            <th class="p-3">Hành khách</th>
+            <th class="p-3">Giá</th>
+            <th class="p-3">Ngày đặt</th>
+            <th class="p-3">Trạng thái</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <tr th:each="t : ${pageData.content}" class="border-b">
+            <td class="p-3" th:text="${t.id}"></td>
+            <td class="p-3" th:text="${t.ticketCode}"></td>
+            <td class="p-3">
+                <span th:text="${t.flight.departureAirport.city}"></span>
+                ->
+                <span th:text="${t.flight.arrivalAirport.city}"></span>
+            </td>
+<!--            <td class="p-3" th:text="${t.passengers != null && t.passengers.size() > 0 ? t.passengers[0].fullname : 'Không có tên'}"></td>-->
+            <td class="p-3" th:text="${t.firstPassengerName}"></td>
+            <td class="p-3" th:text="${#numbers.formatDecimal(t.totalPrice, 0,'POINT',0,'COMMA') + ' đ'}"></td>
+            <td class="p-3" th:text="${#dates.format(t.createdDate, 'dd/MM/yyyy')}"></td>
+            <td class="p-3 font-bold" th:classappend="${t.status == 2} ? 'text-green-600'
+                               : (${t.status == 1} ? 'text-yellow-600' : 'text-red-600')" th:text="${t.status == 2 ? 'Đã bay'
+                        : (t.status == 1 ? 'Sắp bay' : 'Đã hủy')}">
+            </td>
+<!--            <td class="p-3" th:text="${t.status == 2 ? 'Đã bay' : (t.status == 1 ? 'Sắp bay' : 'Đã hủy')}"></td>-->
+        </tr>
+        </tbody>
+    </table>
+    <div class="mt-6 flex justify-center" id="pagination-container"></div>
+</div>
+</body>
+</html>

@@ -43,6 +43,17 @@ public class TicketEntity extends BaseEntity{
     @OneToOne(mappedBy = "ticket")
     private BookingEntity booking;
 
+    @Transient
+    public String getFirstPassengerName() {
+        try {
+            if (passenger == null || passenger.isEmpty()) {
+                return "Không có tên";
+            } return passenger.get(0).getFullname();
+        } catch (Exception e) {
+            return "Không có tên";
+        }
+    }
+
     private String radomLetters(int length) {
         Random random = new Random();
         StringBuilder sb = new StringBuilder(length);
